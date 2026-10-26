@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Bot Championship Dashboard — Model 27 Final Champion</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .tab-active { border-bottom: 3px solid #3182ce; color: #2b6cb0; font-weight: 600; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased p-4 md:p-8">
+  <div class="max-w-7xl mx-auto space-y-6">
+    
+    <!-- Top Header & Metadata Card -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="bg-emerald-100 text-emerald-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Final Champion Validated</span>
+            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Python 3.12 Standard Library</span>
+            <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">Zero External Dependencies</span>
+          </div>
+          <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">Code Bot Championship Dashboard</h1>
+          <p class="text-sm text-slate-500 mt-1">
+            Research and Tournament Engineering by <strong class="text-slate-700">Lakshmi Sai Bhargav Vemparala</strong> 
+            (<a href="mailto:lakshmisaibhargav.v@students.iiit.ac.in" class="text-blue-600 hover:underline">lakshmisaibhargav.v@students.iiit.ac.in</a>) — IIIT Hyderabad
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="IEEE_Report_Generals_IO_Bot.md" target="_blank" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium rounded-xl shadow-sm transition">
+            📄 Read IEEE Paper
+          </a>
+          <a href="../models/model_27_final_champion/bot.py" target="_blank" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium rounded-xl shadow-sm transition">
+            🤖 View Bot Source
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPI Metric Highlights -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div class="text-xs uppercase tracking-wider font-semibold text-slate-400">Tournament Win Rate</div>
+        <div class="text-3xl font-black text-emerald-600 mt-1">98.0%</div>
+        <div class="text-xs text-slate-500 mt-1">49 Wins · 0 Losses · 1 Draw (50 games)</div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div class="text-xs uppercase tracking-wider font-semibold text-slate-400">Peak Turn Latency</div>
+        <div class="text-3xl font-black text-blue-600 mt-1">4.51 ms</div>
+        <div class="text-xs text-slate-500 mt-1">Limit: 150 ms (33.2× safety margin)</div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div class="text-xs uppercase tracking-wider font-semibold text-slate-400">vs Baselines (01–22)</div>
+        <div class="text-3xl font-black text-purple-600 mt-1">100.0%</div>
+        <div class="text-xs text-slate-500 mt-1">44 / 44 wins (flawless sweep)</div>
+      </div>
+
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
+        <div class="text-xs uppercase tracking-wider font-semibold text-slate-400">Submission Binary</div>
+        <div class="text-3xl font-black text-slate-800 mt-1">33.5 KB</div>
+        <div class="text-xs text-emerald-600 font-semibold mt-1">✓ Evaluator static_check: passed</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+      <div class="flex border-b border-slate-200 px-6 pt-3 space-x-6 text-sm overflow-x-auto">
+        <button onclick="switchTab('tab-overview')" id="btn-tab-overview" class="py-3 px-1 border-b-2 tab-active transition">
+          1. 5-Phase Evolution Journey
+        </button>
+        <button onclick="switchTab('tab-figures')" id="btn-tab-figures" class="py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition">
+          2. Figures & Analytics
+        </button>
+        <button onclick="switchTab('tab-leaderboard')" id="btn-tab-leaderboard" class="py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition">
+          3. Complete 50-Game Sweep
+        </button>
+        <button onclick="switchTab('tab-architecture')" id="btn-tab-architecture" class="py-3 px-1 border-b-2 border-transparent text-slate-500 hover:text-slate-800 transition">
+          4. Model 27 Neural-Search Engine
+        </button>
+      </div>
+
+      <!-- Tab Content 1: The 5-Phase Journey -->
+      <div id="tab-overview" class="p-6 space-y-6">
+        <div class="max-w-3xl">
+          <h2 class="text-xl font-bold text-slate-900">Engineering Methodology: From 16 Game Theories to Apex Dominance</h2>
+          <p class="text-sm text-slate-600 mt-1">
+            Rather than jumping directly to an unverified machine learning architecture, our methodology followed a disciplined five-phase evolutionary lifecycle.
+          </p>
+        </div>
+
+        <div class="relative border-l-2 border-blue-200 ml-4 space-y-8 pl-6 my-4">
+          <!-- Phase 1 -->
+          <div class="relative">
+            <span class="absolute -left-[33px] top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-slate-500 text-white text-xs font-bold ring-4 ring-white">1</span>
+            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Phase 1 · Foundation</span>
+              <h3 class="text-base font-bold text-slate-900 mt-0.5">16 Game-Theoretic Primitives (Models 01–17)</h3>
+              <p class="text-sm text-slate-600 mt-1">
+                Constructed standalone models embodying isolated principles: Bayesian search priors, Prize-Collecting Steiner Trees (PCST), Colonel Blotto multi-front breaching, Stackelberg expansion bursts, UCB1 multi-armed bandits, Isaacs differential games, and POMDP ghost reachability.
+              </p>
+              <div class="mt-2 text-xs font-semibold text-slate-500">Outcome: Average pairwise win rate ~41.2%. Served as an exhaustive adversarial test suite.</div>
+            </div>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="relative">
+            <span class="absolute -left-[33px] top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-blue-500 text-white text-xs font-bold ring-4 ring-white">2</span>
+            <div class="bg-blue-50/50 border border-blue-200 rounded-xl p-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Phase 2 · Reinforcement Learning</span>
+              <h3 class="text-base font-bold text-slate-900 mt-0.5">First-Generation RL Champion (Model 23)</h3>
+              <p class="text-sm text-slate-600 mt-1">
+                Unified scoring weights into an evolvable cascade and optimized via self-play (1+λ)-ES over multi-seed simulations. Integrated point-reflection mirror spawn prior and 2-step tactical checks.
+              </p>
+              <div class="mt-2 text-xs font-semibold text-blue-700">Outcome: 85.4% Win Rate. Defeated all 16 game-theoretic baselines; occasional edge losses to rusher bots.</div>
+            </div>
+          </div>
+
+          <!-- Phase 3 -->
+          <div class="relative">
+            <span class="absolute -left-[33px] top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-indigo-600 text-white text-xs font-bold ring-4 ring-white">3</span>
+            <div class="bg-indigo-50/50 border border-indigo-200 rounded-xl p-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Phase 3 · Adversarial Hardening</span>
+              <h3 class="text-base font-bold text-slate-900 mt-0.5">Grandmaster Champion (Model 25)</h3>
+              <p class="text-sm text-slate-600 mt-1">
+                Engineered specifically to defeat Model 23 and all 22 preceding models simultaneously. Added Real Danger Pullback defense (BFS threat excess), adjacent general lock, dynamic Rusher/Turtle/Boomer adaptation, castle economics (kind=2 at d≥7), and Turn 800 deathtouch staging.
+              </p>
+              <div class="mt-2 text-xs font-semibold text-indigo-700">Outcome: 97.9% Win Rate (47/48 wins). Unbeatable against Models 01–22.</div>
+            </div>
+          </div>
+
+          <!-- Phase 4 -->
+          <div class="relative">
+            <span class="absolute -left-[33px] top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-amber-500 text-white text-xs font-bold ring-4 ring-white">4</span>
+            <div class="bg-amber-50/50 border border-amber-200 rounded-xl p-4">
+              <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Phase 4 · Neural Exploration</span>
+              <h3 class="text-base font-bold text-slate-900 mt-0.5">Sub-150ms In-Match Neural Network (Model 26)</h3>
+              <p class="text-sm text-slate-600 mt-1">
+                Implemented a literal 3-layer neural value network (16→32→16→1) in pure Python standard library with online TD(0) backprop running in ~0.09 ms. Identified crucial failure mode: raw uncalibrated neural signal was too large (±50 pts), overriding crisp tactical spearhead movement.
+              </p>
+              <div class="mt-2 text-xs font-semibold text-amber-700">Outcome: 93.8% Win Rate (45/48 wins). Verified feasibility of in-match ML within latency budget.</div>
+            </div>
+          </div>
+
+          <!-- Phase 5 -->
+          <div class="relative">
+            <span class="absolute -left-[33px] top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-600 text-white text-xs font-bold ring-4 ring-white">5</span>
+            <div class="bg-emerald-50 border border-emerald-300 rounded-xl p-4 ring-2 ring-emerald-500/20">
+              <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Phase 5 · Apex Synthesis</span>
+              <h3 class="text-base font-bold text-emerald-950 mt-0.5">Final Champion (Model 27)</h3>
+              <p class="text-sm text-slate-700 mt-1">
+                Fuses M25's proven Grandmaster cascade with 4 calibrated ML improvements: (1) Top-10 1-ply Beam Search opponent rollout, (2) Additive clamped neural value head (±8.0 max), (3) Enhanced DAG frontline funnel (+30 pts to single spearhead), and (4) Dedicated Turn 720+ Deathtouch attack column.
+              </p>
+              <div class="mt-2 text-xs font-bold text-emerald-800">Outcome: 98.0% Win Rate (49 Wins, 0 Losses, 1 Draw across 50 games). 4.51 ms peak latency. Undisputed #1!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 2: High-Resolution Figures -->
+      <div id="tab-figures" class="p-6 hidden space-y-8">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900">Publication Figures & Empirical Analytics</h2>
+          <p class="text-sm text-slate-500 mt-1">Generated at 300 DPI for the accompanying IEEE conference research paper.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+            <h3 class="text-sm font-bold text-slate-900">Figure 1: Win Rate Evolution Across Phases</h3>
+            <img src="figures/fig1_win_rate_progression.png" alt="Win Rate Progression" class="w-full rounded-lg border border-slate-200 shadow-sm">
+            <p class="text-xs text-slate-500">Shows the progression from 41.2% (Phase 1 baselines) to 85.4% (M23), 97.9% (M25), 93.8% (M26), and 98.0% (M27 Final Champion).</p>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+            <h3 class="text-sm font-bold text-slate-900">Figure 2: Execution Latency vs 150 ms Rule Deadline</h3>
+            <img src="figures/fig2_latency_analysis.png" alt="Latency Analysis" class="w-full rounded-lg border border-slate-200 shadow-sm">
+            <p class="text-xs text-slate-500">Left: Peak latency across models (log scale). Right: Probability density of Model 27 per-turn execution time (mean: 0.72 ms, 99th percentile: 3.82 ms).</p>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+            <h3 class="text-sm font-bold text-slate-900">Figure 3: Archetype Matchup Breakdown (50 Games)</h3>
+            <img src="figures/fig3_category_breakdown.png" alt="Category Breakdown" class="w-full rounded-lg border border-slate-200 shadow-sm">
+            <p class="text-xs text-slate-500">Compares Model 25, Model 26, and Model 27 across 6 opponent categories. Model 27 is the only bot to sweep both M25 and M26 2-0.</p>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
+            <h3 class="text-sm font-bold text-slate-900">Figure 4: Model 27 Multi-Tiered Neural-Heuristic Pipeline</h3>
+            <img src="figures/fig4_architecture_pipeline.png" alt="Architecture Pipeline" class="w-full rounded-lg border border-slate-200 shadow-sm">
+            <p class="text-xs text-slate-500">System architecture: Inviolable reflexes, candidate enumeration, Top-10 beam search simulation, and calibrated 3-layer neural value head.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 3: Full 50-Game Leaderboard -->
+      <div id="tab-leaderboard" class="p-6 hidden space-y-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h2 class="text-xl font-bold text-slate-900">Full 50-Game Round-Robin Tournament Matrix</h2>
+            <p class="text-sm text-slate-500 mt-1">Model 27 Final Champion tested as both Player 0 and Player 1 on independent pseudo-random map seeds.</p>
+          </div>
+          <div class="text-xs bg-emerald-50 text-emerald-700 font-bold px-3 py-1.5 rounded-lg border border-emerald-200">
+            Final Score: 49 WINS · 0 LOSSES · 1 DRAW (98.0%)
+          </div>
+        </div>
+
+        <div class="border border-slate-200 rounded-xl overflow-hidden">
+          <div class="overflow-x-auto max-h-[500px]">
+            <table class="w-full text-left text-xs">
+              <thead class="bg-slate-100 text-slate-700 uppercase font-semibold sticky top-0 border-b border-slate-200">
+                <tr>
+                  <th class="py-2.5 px-3">#</th>
+                  <th class="py-2.5 px-3">Opponent Bot</th>
+                  <th class="py-2.5 px-3">Archetype</th>
+                  <th class="py-2.5 px-3">Player 0 Slot</th>
+                  <th class="py-2.5 px-3">Player 1 Slot</th>
+                  <th class="py-2.5 px-3">Peak Latency</th>
+                  <th class="py-2.5 px-3">Outcome</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 font-mono text-[11px]">
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">01</td><td class="py-2 px-3">model_01_bayesian_search</td><td>Bayesian Search Game</td><td class="text-emerald-600 font-bold">WIN (274t)</td><td class="text-emerald-600 font-bold">WIN (401t)</td><td>3.85 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">02</td><td class="py-2 px-3">model_02_pcst_gathering</td><td>Steiner Tree Flow</td><td class="text-emerald-600 font-bold">WIN (343t)</td><td class="text-emerald-600 font-bold">WIN (316t)</td><td>4.51 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">03</td><td class="py-2 px-3">model_03_colonel_blotto</td><td>Asymmetric Blotto</td><td class="text-emerald-600 font-bold">WIN (201t)</td><td class="text-emerald-600 font-bold">WIN (243t)</td><td>3.87 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">04</td><td class="py-2 px-3">model_04_stackelberg_expansion</td><td>Stackelberg Mod-50</td><td class="text-emerald-600 font-bold">WIN (236t)</td><td class="text-emerald-600 font-bold">WIN (256t)</td><td>3.96 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">05</td><td class="py-2 px-3">model_05_minimax_castle</td><td>Facility Location</td><td class="text-emerald-600 font-bold">WIN (238t)</td><td class="text-emerald-600 font-bold">WIN (633t)</td><td>3.40 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">06</td><td class="py-2 px-3">model_06_two_ring_interdiction</td><td>Network Interdiction</td><td class="text-emerald-600 font-bold">WIN (408t)</td><td class="text-emerald-600 font-bold">WIN (357t)</td><td>3.50 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">07</td><td class="py-2 px-3">model_07_war_of_attrition</td><td>Biological WoA (Turtle)</td><td class="text-emerald-600 font-bold">WIN (273t)</td><td class="text-emerald-600 font-bold">WIN (437t)</td><td>3.80 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">08</td><td class="py-2 px-3">model_08_fog_signaling</td><td>Costly Signaling</td><td class="text-emerald-600 font-bold">WIN (242t)</td><td class="text-emerald-600 font-bold">WIN (377t)</td><td>3.56 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">09</td><td class="py-2 px-3">model_09_mab_exploration</td><td>UCB1 Bandit</td><td class="text-emerald-600 font-bold">WIN (245t)</td><td class="text-emerald-600 font-bold">WIN (247t)</td><td>3.62 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">10</td><td class="py-2 px-3">model_10_nash_bargaining</td><td>Nash Bargaining Split</td><td class="text-emerald-600 font-bold">WIN (386t)</td><td class="text-emerald-600 font-bold">WIN (586t)</td><td>3.92 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">11</td><td class="py-2 px-3">model_11_differential_game</td><td>Isaacs Pursuit Gradient</td><td class="text-emerald-600 font-bold">WIN (247t)</td><td class="text-emerald-600 font-bold">WIN (284t)</td><td>3.62 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">12</td><td class="py-2 px-3">model_12_frontier_minimax</td><td>Frontier Skirmish Minimax</td><td class="text-emerald-600 font-bold">WIN (228t)</td><td class="text-emerald-600 font-bold">WIN (319t)</td><td>3.44 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">13</td><td class="py-2 px-3">model_13_opponent_classifier</td><td>Bayesian Opponent Type</td><td class="text-emerald-600 font-bold">WIN (233t)</td><td class="text-emerald-600 font-bold">WIN (267t)</td><td>3.45 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">14</td><td class="py-2 px-3">model_14_pomdp_ghost_tracking</td><td>POMDP Reachability</td><td class="text-emerald-600 font-bold">WIN (437t)</td><td class="text-emerald-600 font-bold">WIN (492t)</td><td>3.50 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">15</td><td class="py-2 px-3">model_15_fst_metagame</td><td>Mealy Automaton</td><td class="text-emerald-600 font-bold">WIN (258t)</td><td class="text-emerald-600 font-bold">WIN (283t)</td><td>3.85 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">16</td><td class="py-2 px-3">model_16_info_revelation</td><td>Value of Information</td><td class="text-emerald-600 font-bold">WIN (227t)</td><td class="text-emerald-600 font-bold">WIN (261t)</td><td>3.52 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">17</td><td class="py-2 px-3">model_17_proposed_cascade</td><td>Proposed Cascade</td><td class="text-emerald-600 font-bold">WIN (277t)</td><td class="text-emerald-600 font-bold">WIN (244t)</td><td>3.71 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">18</td><td class="py-2 px-3">model_18_codebot_v0_known_good</td><td>Official Baseline</td><td class="text-emerald-600 font-bold">WIN (453t)</td><td class="text-emerald-600 font-bold">WIN (634t)</td><td>3.41 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">19</td><td class="py-2 px-3">model_19_codebot_v1_probe_stage</td><td>Dual-Stage Stager</td><td class="text-emerald-600 font-bold">WIN (429t)</td><td class="text-emerald-600 font-bold">WIN (308t)</td><td>3.42 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">20</td><td class="py-2 px-3">model_20_kg_rush</td><td>Hyper-Aggressive Rusher</td><td class="text-emerald-600 font-bold">WIN (292t)</td><td class="text-emerald-600 font-bold">WIN (252t)</td><td>4.05 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">21</td><td class="py-2 px-3">model_21_kg_fortress</td><td>Economic Fortress</td><td class="text-emerald-600 font-bold">WIN (288t)</td><td class="text-emerald-600 font-bold">WIN (489t)</td><td>3.65 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="hover:bg-slate-50"><td class="py-2 px-3 font-bold">22</td><td class="py-2 px-3">model_22_pinner</td><td>Threat Pinner Exploit</td><td class="text-emerald-600 font-bold">WIN (346t)</td><td class="text-emerald-600 font-bold">WIN (252t)</td><td>3.98 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="bg-amber-50/40 hover:bg-amber-50"><td class="py-2 px-3 font-bold">23</td><td class="py-2 px-3 font-semibold">model_23_rl_champion</td><td>First-Gen RL Champion</td><td class="text-emerald-600 font-bold">WIN (271t)</td><td class="text-amber-600 font-bold">DRAW (1001t)</td><td>3.84 ms</td><td><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold">1.5 - 0.5</span></td></tr>
+                <tr class="bg-emerald-50/50 hover:bg-emerald-50"><td class="py-2 px-3 font-bold">24</td><td class="py-2 px-3 font-bold text-slate-900">model_25_grandmaster_champion</td><td>Grandmaster Champion</td><td class="text-emerald-600 font-bold">WIN (236t)</td><td class="text-emerald-600 font-bold">WIN (307t)</td><td>3.90 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+                <tr class="bg-emerald-50/50 hover:bg-emerald-50"><td class="py-2 px-3 font-bold">25</td><td class="py-2 px-3 font-bold text-slate-900">model_26_apex_predator</td><td>Apex Predator (ML)</td><td class="text-emerald-600 font-bold">WIN (281t)</td><td class="text-emerald-600 font-bold">WIN (755t)</td><td>3.56 ms</td><td><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold">2 - 0</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab Content 4: Architecture Deep Dive -->
+      <div id="tab-architecture" class="p-6 hidden space-y-6">
+        <div>
+          <h2 class="text-xl font-bold text-slate-900">Model 27 Internal Architecture: The 4 Strategic Superpowers</h2>
+          <p class="text-sm text-slate-500 mt-1">How Model 27 resolves moves within 4.51 ms under the Python 3.12 standard library constraint.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
+            <div class="text-xs uppercase tracking-wider font-bold text-blue-600">Superpower 1 · Search</div>
+            <h3 class="text-base font-bold text-slate-900">Top-10 Beam Search with 1-Ply Opponent Sim</h3>
+            <p class="text-sm text-slate-600">
+              Evaluates all candidate moves with base heuristic, sorts the top 10, and forward-simulates the resulting board state. If the move allows an adjacent enemy to immediately recapture, a severe −85.0 penalty is applied. If it enables lethal decapitation next turn, a +2500.0 bonus is awarded.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
+            <div class="text-xs uppercase tracking-wider font-bold text-emerald-600">Superpower 2 · Machine Learning</div>
+            <h3 class="text-base font-bold text-slate-900">Additive Clamped Neural Value Head (±8.0)</h3>
+            <p class="text-sm text-slate-600">
+              Pure CPython 3-layer neural network (16→32→16→1) fed by 16 spatial features (target distance delta, army advantage tanh, frontier threat, mod-50 phase). The output is strictly clamped to [−8, +8] and added with weight 0.8 to fine-tune close decisions without overriding hard safety rules.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
+            <div class="text-xs uppercase tracking-wider font-bold text-purple-600">Superpower 3 · Logistics</div>
+            <h3 class="text-base font-bold text-slate-900">Enhanced DAG Frontline Funnel</h3>
+            <p class="text-sm text-slate-600">
+              Scans for the single best friendly frontline tile (army ≥ 3 and minimum BFS distance to enemy general). All rear allied armies receive an aggressive inward flow bonus (+30.0 + army×0.3) toward this tile, turning scattered territory armies into an unstoppable battering ram.
+            </p>
+          </div>
+
+          <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 space-y-3">
+            <div class="text-xs uppercase tracking-wider font-bold text-amber-600">Superpower 4 · Victory Condition</div>
+            <h3 class="text-base font-bold text-slate-900">Turn 720+ Deathtouch Column Routing</h3>
+            <p class="text-sm text-slate-600">
+              At turn 720, the engine detects the upcoming Turn 800 Deathtouch singularity rule. It locates the largest allied stack within 15 tiles of the enemy general and actively builds an attack column along the shortest path, timing the assault to strike right as deathtouch goes active.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      const tabs = ['tab-overview', 'tab-figures', 'tab-leaderboard', 'tab-architecture'];
+      tabs.forEach(t => {
+        document.getElementById(t).classList.add('hidden');
+        document.getElementById('btn-' + t).classList.remove('tab-active');
+        document.getElementById('btn-' + t).classList.add('border-transparent', 'text-slate-500');
+      });
+      document.getElementById(tabId).classList.remove('hidden');
+      document.getElementById('btn-' + tabId).classList.add('tab-active');
+      document.getElementById('btn-' + tabId).classList.remove('border-transparent', 'text-slate-500');
+    }
+  </script>
+</body>
+</html>
