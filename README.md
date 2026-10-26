@@ -1,8 +1,19 @@
 # Code Bot — Generals.io Hackathon
 
-> **Final Champion:** [`model_27_final_champion/bot.py`](./models/model_27_final_champion/bot.py) · **98.0% win rate** · 49/50 games · 4.51 ms peak latency
+> **Final Champion:** [`model_27_final_champion/bot.py`](./models/model_27_final_champion/bot.py) · **98.0% win rate** · 49 W / 0 L / 1 D in 50 games · 4.51 ms peak latency (limit 150 ms)
 >
 > **Author:** Lakshmi Sai Bhargav Vemparala — lakshmisaibhargav.v@students.iiit.ac.in
+
+---
+
+## At a Glance
+
+| | |
+|:---|:---|
+| **Result** | 49 wins, 0 losses, 1 draw against 25 opposing bots (both player slots) |
+| **Approach** | Hand-built heuristic core with ES-tuned weights, plus beam search and a small neural head that can only nudge scores |
+| **Constraints met** | Standard library only, one 33.5 KB file, ~33× under the time limit |
+| **Where to look** | [Final bot](./models/model_27_final_champion/bot.py) · [Results](#final-tournament-results) · [IEEE-style report](docs/IEEE_Report_Generals_IO_Bot.md) · [Dashboard](docs/dashboard.html) |
 
 ---
 
@@ -21,12 +32,13 @@
 
 ## Development Journey
 
-```
-Phase 1              Phase 2           Phase 3           Phase 4           Phase 5
-Game-Theory         RL Champion       RL Champion v2    ML Exploration    Final Champion
-Models 01–17   →   Model 23      →   Model 25      →   Model 26      →   Model 27
-(16 frameworks)    (ES self-play)    (beats all 23)    (Neural Net)      (98.0% WR)
-```
+| Phase | Models | What changed | Win rate |
+|:---:|:---|:---|:---:|
+| 1 | 01–17 | 16 game-theoretic frameworks + 1 synthesis; used as sparring partners | 41.2% (avg.) |
+| 2 | 23 | (1+λ)-ES self-play tunes the scoring weights | 85.4% |
+| 3 | 25 | Defence, opponent adaptation and castles; beats all 23 earlier models | 97.9% |
+| 4 | 26 | Pure-Python neural value net (overweighted, so it regressed) | 93.8% |
+| 5 | 27 | Beam search + calibrated neural head on M25's core | **98.0%** |
 
 ---
 
@@ -217,16 +229,18 @@ vs model_26_apex_predator:         2 W / 0 L / 0 D  →  100%
 
 ## Performance & Empirical Visualizations
 
-### Win Rate Evolution Across Phases
+### Win rate across development phases
+Model 26 regressed because its raw neural score overrode tactical rules; Model 27 fixed this by clamping the neural signal.
+
 ![Win Rate Progression](docs/figures/fig1_win_rate_progression.png)
 
-### Latency Distribution vs 150 ms Rule Ceiling
+### Peak latency vs the 150 ms rule
 ![Latency Analysis](docs/figures/fig2_latency_analysis.png)
 
-### Tournament Performance by Bot Category
+### Model 27 results by opponent group
 ![Category Breakdown](docs/figures/fig3_category_breakdown.png)
 
-### Model 27 Decision Pipeline Architecture
+### Model 27 decision pipeline
 ![Architecture Pipeline](docs/figures/fig4_architecture_pipeline.png)
 
 ---
@@ -257,6 +271,7 @@ code_bot/
 │   ├── model_21_kg_fortress/
 │   ├── model_22_pinner/
 │   ├── model_23_rl_champion/            Phase 2 — First RL champion
+│   │                                    (no model_24: numbering skips it)
 │   ├── model_25_grandmaster_champion/   Phase 3 — Second RL champion (97.9%)
 │   ├── model_26_apex_predator/          Phase 4 — ML exploration (93.8%)
 │   └── model_27_final_champion/         Phase 5 — FINAL SUBMISSION (98.0%) ✅
@@ -280,7 +295,7 @@ python3 evaluator/evaluate.py validate models/model_27_final_champion/bot.py
 # Simulate a 1v1 match
 python3 run_all_tests.py --match model_27_final_champion model_25_grandmaster_champion --seed 42 --turns 1000
 
-# Run full evaluator validation on all 26 bots
+# Validate all 26 bots with the evaluator
 python3 run_all_tests.py --validate
 ```
 
