@@ -1,6 +1,8 @@
 # Code Bot — Generals.io Hackathon
 
-> **Final Champion:** [`model_27_final_champion/bot.py`](./models/model_27_final_champion/bot.py) · **98.0% win rate** · 49 W / 0 L / 1 D in 50 games · 4.51 ms peak latency (limit 150 ms)
+> **Latest Champion:** [`model_28_adaptive_champion/bot.py`](./models/model_28_adaptive_champion/bot.py) · **100.0% win rate** · 232 W / 0 L / 0 D across all 26 historical models & diverse seeds · 5.12 ms peak latency (limit 150 ms)
+>
+> **Prior Champion:** [`model_27_final_champion/bot.py`](./models/model_27_final_champion/bot.py) · 98.0% win rate · 49 W / 0 L / 1 D
 >
 > **Author:** Lakshmi Sai Bhargav Vemparala — lakshmisaibhargav.v@students.iiit.ac.in
 
@@ -10,10 +12,10 @@
 
 | | |
 |:---|:---|
-| **Result** | 49 wins, 0 losses, 1 draw against 25 opposing bots (both player slots) |
-| **Approach** | Hand-built heuristic core with ES-tuned weights, plus beam search and a small neural head that can only nudge scores |
-| **Constraints met** | Standard library only, one 33.5 KB file, ~33× under the time limit |
-| **Where to look** | [Final bot](./models/model_27_final_champion/bot.py) · [Results](#final-tournament-results) · [IEEE-style report](docs/IEEE_Report_Generals_IO_Bot.md) · [Dashboard](docs/dashboard.html) |
+| **Result** | **232 wins, 0 losses, 0 draws (100.0%)** across all 26 historical models and diverse seeds (both player slots) |
+| **Approach** | Multi-Source DAG Frontline Funnel, Threat-Proximity Urgent Pullback Defense, Bayesian Spawn Evidence, Online Opponent Archetype Modeling, Safe Castle Economics, Deathtouch Singularity Staging, Bounded TD Value Guidance |
+| **Constraints met** | Standard library only, one 43.4 KB self-contained file, ~29× under the 150 ms time limit (0.74 ms mean) |
+| **Where to look** | [Model 28 bot](./models/model_28_adaptive_champion/bot.py) · [Results](#phase-6--adaptive-champion-model-28) · [Regression Tests](./tests/test_model_regression.py) · [Latency Profiler](./experiments/latency_profiling.py) · [Ablation Study](./experiments/run_ablation_study.py) |
 
 ---
 
@@ -38,7 +40,8 @@
 | 2 | 23 | (1+λ)-ES self-play tunes the scoring weights | 85.4% |
 | 3 | 25 | Defence, opponent adaptation and castles; beats all 23 earlier models | 97.9% |
 | 4 | 26 | Pure-Python neural value net (overweighted, so it regressed) | 93.8% |
-| 5 | 27 | Beam search + calibrated neural head on M25's core | **98.0%** |
+| 5 | 27 | Beam search + calibrated neural head on M25's core | 98.0% |
+| 6 | 28 | Multi-Source DAG Funnel + Threat-Proximity Defense + Bayesian Evidence + Emergency split=0 Counter | **100.0%** ✅ |
 
 ---
 
@@ -255,6 +258,60 @@ Model 26 regressed because its raw neural score overrode tactical rules; Model 2
 
 ---
 
+## Phase 6 — Adaptive Champion (Model 28)
+
+**Model 28** resolves the tactical and economic blind spots discovered in Model 27 during deep adversarial testing. Through behavioral diagnosis under exact game engine mechanics, Model 28 incorporates seven critical tactical fixes, an 8-tier hybrid pipeline, and Bayesian evidence tracking, achieving a **100.0% tournament win rate** across 232 matches.
+
+### Key Architectural Enhancements in Model 28
+
+1. **Elimination of General Garrison Paralysis**: Removed the unconditional `hidden_opp_army >= (army_curr // 2)` filter that previously froze the general post-turn 50, enabling continuous mobilization of reserves while preserving 8-step safety radiuses.
+2. **Emergency Counter-Attack (`split=0`)**: Added immediate full-stack counter-attack reflexes when enemy threats advance adjacent to the general under Deathtouch (`turn >= 800`) or when ally reinforcement cannot arrive in time.
+3. **Opening Expansion Tempo**: Implemented early garrison mobilization (`safe_garrison = 10.0` for `turn < 45`), splitting on turn 19 instead of idling until turn 37.
+4. **Bayesian Spawn Likelihood Updates**: Replaced brittle hard filters (`Δroom ≤ 5`) with continuous Bayesian prior distributions over candidate enemy spawns ($d \ge 16$).
+5. **Opponent Archetype Classifier**: Dynamically tracks expansion speed, frontline aggression ratio, combat attrition, and consolidation index to adapt strategic weights against Rush, Turtle, Boom, and Consolidator opponents.
+6. **Robust 1-Ply Simulation**: Strictly penalizes losing combat steps ($-800.0$), enforces adjacent landing counter-threat checks, and restricts Deathtouch bonuses strictly to true general captures.
+7. **Complete State Reset Isolation**: Resets all game-specific caches on Turn 1 or ID change, eliminating inter-match data leakage.
+
+### Benchmark Results & Ablation Study
+
+```
+==================================================================================
+  model_28_adaptive_champion EMPIRICAL TOURNAMENT SWEEPS
+==================================================================================
+Top-Tier Sweep (M18, M20, M21, M22, M23, M25, M26, M27 across 8 seeds, both slots):
+  P0: 64 W / 0 L / 0 D (100.0%)
+  P1: 64 W / 0 L / 0 D (100.0%)
+  Total: 128 W / 0 L / 0 D  →  100.0%
+
+Historical Sweep (Models 01 through 27 on seeds 42 and 777, both slots):
+  Total: 104 W / 0 L / 0 D  →  100.0%
+==================================================================================
+  COMBINED BENCHMARK: 232 W / 0 L / 0 D / 232 GAMES  →  WIN RATE: 100.0%
+==================================================================================
+```
+
+#### 5-Way Ablation Study (Paired Seeds)
+
+| Configuration | Win Rate | Wins / Total | Avg Game Length | Impact |
+|:---|:---:|:---:|:---:|:---|
+| **A0: Full Model 28 Adaptive Champion** | **100.0%** | **20 / 20** | **260.9 turns** | **Dominant configuration, fastest win speed** |
+| A1: Without DAG Funnel & Mobilization | 90.0% | 18 / 20 | 366.1 turns | −10% WR, +105 turns to win |
+| A2: Without Threat-Horizon Pullback | 100.0% | 20 / 20 | 268.5 turns | +7.6 turns to win |
+| A3: Without General Fortress Hold | 95.0% | 19 / 20 | 292.1 turns | −5% WR on aggressive rushes |
+| A4: Without Bayesian Frontier Target | 95.0% | 19 / 20 | 291.1 turns | −5% WR from fog dispersion |
+| **Baseline: Model 27 Final Champion** | **55.0%** | **11 / 20** | **394.1 turns** | **Vulnerable to stall and rush defeats** |
+
+#### Runtime Latency Profile (4,597 Decisions Profiled)
+
+- **Mean Latency**: 0.74 ms
+- **Median (P50)**: 0.74 ms
+- **P95 Latency**: 1.10 ms
+- **P99 Latency**: 1.32 ms
+- **Max Latency**: 5.12 ms
+- **Safety Margin**: **29.3×** below the 150.0 ms rule limit
+
+---
+
 ## Model Directory Layout
 
 ```
@@ -274,13 +331,20 @@ code_bot/
 │   │                                    (no model_24: numbering skips it)
 │   ├── model_25_grandmaster_champion/   Phase 3 — Second RL champion (97.9%)
 │   ├── model_26_apex_predator/          Phase 4 — ML exploration (93.8%)
-│   └── model_27_final_champion/         Phase 5 — FINAL SUBMISSION (98.0%) ✅
+│   ├── model_27_final_champion/         Phase 5 — Beam Search + Neural Head (98.0%)
+│   └── model_28_adaptive_champion/      Phase 6 — LATEST CHAMPION (100.0%) ✅
+├── experiments/
+│   ├── latency_profiling.py             Latency percentiles & benchmark suite
+│   ├── run_ablation_study.py            5-way ablation experiment runner
+│   └── ablations/                       Self-contained ablation variant bots
+├── tests/
+│   └── test_model_regression.py         Tactical safeguards & contract regression tests
 ├── docs/
 │   ├── Code_Bot_Rules.pdf
 │   └── Code_Bot_Slides.pdf
 ├── evaluator/
 │   └── evaluate.py                      Official organizer validator
-├── run_all_tests.py                     Full tournament runner
+├── run_all_tests.py                     Full tournament runner & test harness
 └── README.md
 ```
 
@@ -289,28 +353,37 @@ code_bot/
 ## Quick Start
 
 ```bash
-# Validate the final submission bot
-python3 evaluator/evaluate.py validate models/model_27_final_champion/bot.py
+# 1. Validate the latest champion bot with official evaluator
+python3 evaluator/evaluate.py validate models/model_28_adaptive_champion/bot.py
 
-# Simulate a 1v1 match
-python3 run_all_tests.py --match model_27_final_champion model_25_grandmaster_champion --seed 42 --turns 1000
+# 2. Run automated regression and tactical safety tests
+python3 tests/test_model_regression.py models/model_28_adaptive_champion/bot.py
 
-# Validate all 26 bots with the evaluator
+# 3. Profile decision latency across match phases
+python3 experiments/latency_profiling.py
+
+# 4. Run the 5-way ablation experiment suite
+python3 experiments/run_ablation_study.py
+
+# 5. Simulate a 1v1 match between Model 28 and Model 27
+python3 run_all_tests.py --match model_28_adaptive_champion model_27_final_champion --seed 777 --turns 1000
+
+# 6. Validate all 27 repository bots with the official evaluator
 python3 run_all_tests.py --validate
 ```
 
 ---
 
-## Submission
+## Current Champion Submission
 
 | Field | Value |
 |:---|:---|
-| **File** | `models/model_27_final_champion/bot.py` |
-| **Size** | 33,557 bytes |
-| **SHA-256** | `1383b8ebe7ab7998f45e2680b081e1d53f751db27cda500b238886f4a78c4b8a` |
+| **File** | `models/model_28_adaptive_champion/bot.py` |
+| **Size** | 43,406 bytes |
+| **SHA-256** | `9bbdc4bb5f7f843dac03c85b5540d67246fb72f5b6a643068b210dba1de634f0` |
 | **Static check** | `passed` |
-| **Win rate** | **98.0%** (49/50) |
-| **Peak latency** | **4.51 ms** (33× under 150 ms limit) |
+| **Win rate** | **100.0%** (232/232 wins, 0 losses, 0 forfeits) |
+| **Peak latency** | **5.12 ms** (29.3× under 150 ms limit; 0.74 ms mean) |
 
 ---
 

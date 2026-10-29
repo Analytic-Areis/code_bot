@@ -49,6 +49,7 @@ MODELS = [
     ("model_25_grandmaster_champion", "Grandmaster Tournament Champion"),
     ("model_26_apex_predator", "Apex Predator (IDS + Neural Net + Potential Fields)"),
     ("model_27_final_champion", "Final Champion (Beam Search + Calibrated Neural Head + DAG Funnel)"),
+    ("model_28_adaptive_champion", "Adaptive Champion (DAG Funnel + Threat-Proximity Defense + Bayesian Evidence)"),
 ]
 
 DIRS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
