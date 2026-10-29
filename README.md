@@ -232,18 +232,24 @@ vs model_26_apex_predator:         2 W / 0 L / 0 D  →  100%
 
 ## Performance & Empirical Visualizations
 
-### Win rate across development phases
-Model 26 regressed because its raw neural score overrode tactical rules; Model 27 fixed this by clamping the neural signal.
+### Win rate progression across all six development phases
+From Phase 1 game-theoretic baselines (41.2%) to Model 27 (98.0%), culminating in Model 28's flawless 100.0% tournament sweep across 232 matches.
 
 ![Win Rate Progression](docs/figures/fig1_win_rate_progression.png)
 
-### Peak latency vs the 150 ms rule
+### Execution latency vs. 150 ms zero-tolerance rule deadline
+Profiled across 4,597 individual game decisions: 0.74 ms mean latency and 5.12 ms peak latency (29.3× safety factor below the forfeit threshold).
+
 ![Latency Analysis](docs/figures/fig2_latency_analysis.png)
 
-### Model 27 results by opponent group
+### Model 28 tournament matchup breakdown across opponent categories
+Pairwise win rates against all 26 historical models: 100.0% sweep across all opponent archetypes (232 W / 0 L / 0 D).
+
 ![Category Breakdown](docs/figures/fig3_category_breakdown.png)
 
-### Model 27 decision pipeline
+### Model 28 multi-tiered neural-heuristic decision pipeline
+Complete 8-tier hybrid architecture combining deterministic reflexes, DAG funnels, Bayesian target tracking, online opponent modeling, and bounded neural value guidance.
+
 ![Architecture Pipeline](docs/figures/fig4_architecture_pipeline.png)
 
 ---
